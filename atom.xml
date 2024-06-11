@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-06-11T01:53:47.052Z</updated>
+  <updated>2024-06-11T07:34:03.463Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,12 +17,19 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>hello-world</title>
-    <link href="http://example.com/2024/06/11/hello-world-1/"/>
-    <id>http://example.com/2024/06/11/hello-world-1/</id>
-    <published>2024-06-11T01:49:03.000Z</published>
-    <updated>2024-06-11T01:53:47.052Z</updated>
+    <title>高性能科学与工程计算</title>
+    <link href="http://example.com/2024/06/11/%E9%AB%98%E6%80%A7%E8%83%BD%E7%A7%91%E5%AD%A6%E4%B8%8E%E5%B7%A5%E7%A8%8B%E8%AE%A1%E7%AE%97/"/>
+    <id>http://example.com/2024/06/11/%E9%AB%98%E6%80%A7%E8%83%BD%E7%A7%91%E5%AD%A6%E4%B8%8E%E5%B7%A5%E7%A8%8B%E8%AE%A1%E7%AE%97/</id>
+    <published>2024-06-11T02:18:33.000Z</published>
+    <updated>2024-06-11T07:34:03.463Z</updated>
     
+    <content type="html"><![CDATA[<h1 id="高性能科学与计算笔记"><a href="#高性能科学与计算笔记" class="headerlink" title="高性能科学与计算笔记"></a>高性能科学与计算笔记</h1><h2 id="一-当代处理器"><a href="#一-当代处理器" class="headerlink" title="一 当代处理器"></a>一 当代处理器</h2><h2 id="二"><a href="#二" class="headerlink" title="二"></a>二</h2><h2 id="三-数据访存优化"><a href="#三-数据访存优化" class="headerlink" title="三 数据访存优化"></a>三 数据访存优化</h2><p>1.访存是最重要的性能限制因素，任何优化首先要减少性能低的数据数据通路上的数据传输，当这不能实现时，至少让数据传输尽可能高效。</p><p>2.基于cache行的内存布局和任何多维数据结构间的映射必须与数据读取和存储顺序相匹配以充分利用局部性</p><p>3.由于cache的回写策略，不连续写比不连续读的代价更高</p><p>4.直接映射cache有一个确定是容易产生颠簸（某些cache行被迅速的导出和替换），当应用程序使用很多应用数据映射到cache的同一行时容易发生这样的现象。所以当连续迭代命中相同的cache行时，非连续访存会导致性能颠簸（不仅仅是直接映射，组相联也会有这种现象）。</p><p>5.循环级优化（循环展开，循环合并，循环分块）<br>其中循环分块：编译器不会自动执行</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;高性能科学与计算笔记&quot;&gt;&lt;a href=&quot;#高性能科学与计算笔记&quot; class=&quot;headerlink&quot; title=&quot;高性能科学与计算笔记&quot;&gt;&lt;/a&gt;高性能科学与计算笔记&lt;/h1&gt;&lt;h2 id=&quot;一-当代处理器&quot;&gt;&lt;a href=&quot;#一-当代处理器&quot; class</summary>
+      
     
     
     
