@@ -91,9 +91,7 @@ int main()&#123;
   <entry>
     <title>HPC笔记</title>
     <url>/2024/06/12/HPC%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<hr>
-<h2 id="title-HPC笔记date-2024-06-12-14-58-18tags"><a href="#title-HPC笔记date-2024-06-12-14-58-18tags" class="headerlink" title="title: HPC笔记date: 2024-06-12 14:58:18tags:"></a>title: HPC笔记<br>date: 2024-06-12 14:58:18<br>tags:</h2><hr>
-<h2 id="title-并行笔记date-2024-06-11-10-18-33tags"><a href="#title-并行笔记date-2024-06-11-10-18-33tags" class="headerlink" title="title: 并行笔记date: 2024-06-11 10:18:33tags:"></a>title: 并行笔记<br>date: 2024-06-11 10:18:33<br>tags:</h2><h1 id="Parallel-and-High-Performance-Computing"><a href="#Parallel-and-High-Performance-Computing" class="headerlink" title="Parallel and High Performance Computing"></a>Parallel and High Performance Computing</h1><h2 id="一-为什么要并行计算"><a href="#一-为什么要并行计算" class="headerlink" title="一 为什么要并行计算"></a>一 为什么要并行计算</h2><p>降低成本、降低能耗、运行时间更短</p>
+    <content><![CDATA[<h1 id="Parallel-and-High-Performance-Computing"><a href="#Parallel-and-High-Performance-Computing" class="headerlink" title="Parallel and High Performance Computing"></a>Parallel and High Performance Computing</h1><h2 id="一-为什么要并行计算"><a href="#一-为什么要并行计算" class="headerlink" title="一 为什么要并行计算"></a>一 为什么要并行计算</h2><p>降低成本、降低能耗、运行时间更短</p>
 <p>1.能耗 &#x3D; 处理器的个数 * 理论设计功耗 * 应用程序运行时间。<br>GPU公式相同，N为GPU的数量</p>
 <p>2.amdahl定律：speedupN &#x3D; 1&#x2F;s+(p&#x2F;n)<br>无论我们以多块的速度完成并行代码的部分，我们总是会受到串行部分的限制。</p>
 <p>强可拓展性：<br><img src="/.com//image-3.png" alt="alt text"></p>
