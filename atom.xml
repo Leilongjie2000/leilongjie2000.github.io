@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-06-12T07:16:32.404Z</updated>
+  <updated>2024-06-12T07:17:26.727Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://example.com/2024/06/12/HPC%E7%AC%94%E8%AE%B0/"/>
     <id>http://example.com/2024/06/12/HPC%E7%AC%94%E8%AE%B0/</id>
     <published>2024-06-12T07:11:16.000Z</published>
-    <updated>2024-06-12T07:16:32.404Z</updated>
+    <updated>2024-06-12T07:17:26.727Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Parallel-and-High-Performance-Computing"><a href="#Parallel-and-High-Performance-Computing" class="headerlink" title="Parallel and High Performance Computing"></a>Parallel and High Performance Computing</h1><h2 id="一-为什么要并行计算"><a href="#一-为什么要并行计算" class="headerlink" title="一 为什么要并行计算"></a>一 为什么要并行计算</h2><p>降低成本、降低能耗、运行时间更短</p><p>1.能耗 &#x3D; 处理器的个数 * 理论设计功耗 * 应用程序运行时间。<br>GPU公式相同，N为GPU的数量</p><p>2.amdahl定律：speedupN &#x3D; 1&#x2F;s+(p&#x2F;n)<br>无论我们以多块的速度完成并行代码的部分，我们总是会受到串行部分的限制。</p><p>强可拓展性：<br><img src="/.com//image-3.png" alt="alt text"></p><p>3.Gustafson-Barsis 定律：SpeedUp(N) &#x3D; N – S * (N – 1)</p><p>弱可拓展性：<br><img src="/.com//image-4.png" alt="alt text"></p><p>4.分布式内存和共享式内存<br><img src="/.com//image-5.png" alt="alt text"><br>良好的内存可拓展性，但是需要程序员手动管理内存分区<br><img src="/.com//image-6.png" alt="alt text"><br>易于编程，但是可拓展性降低，内核之间同步内存访问开销大</p><p>5.为什么不继续提高时钟频率而进行向量呢？<br>增加 CPU 时钟频率的最大限制是它需要更多的功率并产生更多的热量。如今的设备都有功率限制。这个问题被称为power wall.而向量化，功率没有变化，执行时间降低导致更少的能耗，同时还能提高吞吐量</p><p>6.基于进程的并行化：消息传递（MPI）<br><img src="/.com//image-7.png" alt="alt text"><br>进程是一个操作系统概念，而处理器是一个硬件组件。无论应用程序生成多少个进程，这些进程都由操作系统调度到处理核心。实际上，您可以在四核笔记本电脑上运行八个进程，这些进程只会在处理内核之间交换</p><p>7.基于线程的并行化<br>只适用于单个节点<br><img src="/.com//image-8.png" alt="alt text"></p><p>8.练习与总结</p><h2 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h2><p>超线程：将两个指令队列交错工作到硬件逻辑单元，可以使单个物理内核在操作系统 （OS） 中显示为两个内核</p><h2 id="三-数据访存优化"><a href="#三-数据访存优化" class="headerlink" title="三 数据访存优化"></a>三 数据访存优化</h2><p>1.访存是最重要的性能限制因素，任何优化首先要减少性能低的数据数据通路上的数据传输，当这不能实现时，至少让数据传输尽可能高效。</p><p>2.基于cache行的内存布局和任何多维数据结构间的映射必须与数据读取和存储顺序相匹配以充分利用局部性</p><p>3.由于cache的回写策略，不连续写比不连续读的代价更高</p><p>4.直接映射cache有一个确定是容易产生颠簸（某些cache行被迅速的导出和替换），当应用程序使用很多应用数据映射到cache的同一行时容易发生这样的现象。所以当连续迭代命中相同的cache行时，非连续访存会导致性能颠簸（不仅仅是直接映射，组相联也会有这种现象）。</p><p>5.循环级优化（循环展开，循环合并，循环分块）<br>其中循环分块：编译器不会自动执行</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Parallel-and-High-Performance-Computing"><a href="#Parallel-and-High-Performance-Computing" class="headerlink" title="Parallel and High Performance Computing"></a>Parallel and High Performance Computing</h1><h2 id="一-为什么要并行计算"><a href="#一-为什么要并行计算" class="headerlink" title="一 为什么要并行计算"></a>一 为什么要并行计算</h2><p>降低成本、降低能耗、运行时间更短</p><p>1.能耗 &#x3D; 处理器的个数 * 理论设计功耗 * 应用程序运行时间。<br>GPU公式相同，N为GPU的数量</p><p>2.amdahl定律：speedupN &#x3D; 1&#x2F;s+(p&#x2F;n)<br>无论我们以多块的速度完成并行代码的部分，我们总是会受到串行部分的限制。</p><p>强可拓展性：<br><img src="/.com//image-3.png"></p><p>3.Gustafson-Barsis 定律：SpeedUp(N) &#x3D; N – S * (N – 1)</p><p>弱可拓展性：<br><img src="/.com//image-4.png" alt="alt text"></p><p>4.分布式内存和共享式内存<br><img src="/.com//image-5.png" alt="alt text"><br>良好的内存可拓展性，但是需要程序员手动管理内存分区<br><img src="/.com//image-6.png" alt="alt text"><br>易于编程，但是可拓展性降低，内核之间同步内存访问开销大</p><p>5.为什么不继续提高时钟频率而进行向量呢？<br>增加 CPU 时钟频率的最大限制是它需要更多的功率并产生更多的热量。如今的设备都有功率限制。这个问题被称为power wall.而向量化，功率没有变化，执行时间降低导致更少的能耗，同时还能提高吞吐量</p><p>6.基于进程的并行化：消息传递（MPI）<br><img src="/.com//image-7.png" alt="alt text"><br>进程是一个操作系统概念，而处理器是一个硬件组件。无论应用程序生成多少个进程，这些进程都由操作系统调度到处理核心。实际上，您可以在四核笔记本电脑上运行八个进程，这些进程只会在处理内核之间交换</p><p>7.基于线程的并行化<br>只适用于单个节点<br><img src="/.com//image-8.png" alt="alt text"></p><p>8.练习与总结</p><h2 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h2><p>超线程：将两个指令队列交错工作到硬件逻辑单元，可以使单个物理内核在操作系统 （OS） 中显示为两个内核</p><h2 id="三-数据访存优化"><a href="#三-数据访存优化" class="headerlink" title="三 数据访存优化"></a>三 数据访存优化</h2><p>1.访存是最重要的性能限制因素，任何优化首先要减少性能低的数据数据通路上的数据传输，当这不能实现时，至少让数据传输尽可能高效。</p><p>2.基于cache行的内存布局和任何多维数据结构间的映射必须与数据读取和存储顺序相匹配以充分利用局部性</p><p>3.由于cache的回写策略，不连续写比不连续读的代价更高</p><p>4.直接映射cache有一个确定是容易产生颠簸（某些cache行被迅速的导出和替换），当应用程序使用很多应用数据映射到cache的同一行时容易发生这样的现象。所以当连续迭代命中相同的cache行时，非连续访存会导致性能颠簸（不仅仅是直接映射，组相联也会有这种现象）。</p><p>5.循环级优化（循环展开，循环合并，循环分块）<br>其中循环分块：编译器不会自动执行</p>]]></content>
     
     
       
@@ -49,26 +49,6 @@
       
       
     <summary type="html">&lt;h1 id=&quot;数组&quot;&gt;&lt;a href=&quot;#数组&quot; class=&quot;headerlink&quot; title=&quot;数组&quot;&gt;&lt;/a&gt;数组&lt;/h1&gt;&lt;h2 id=&quot;二分查找&quot;&gt;&lt;a href=&quot;#二分查找&quot; class=&quot;headerlink&quot; title=&quot;二分查找&quot;&gt;&lt;/a&gt;二分查找&lt;/h</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>并行笔记</title>
-    <link href="http://example.com/2024/06/11/%E9%AB%98%E6%80%A7%E8%83%BD%E7%A7%91%E5%AD%A6%E4%B8%8E%E5%B7%A5%E7%A8%8B%E8%AE%A1%E7%AE%97/"/>
-    <id>http://example.com/2024/06/11/%E9%AB%98%E6%80%A7%E8%83%BD%E7%A7%91%E5%AD%A6%E4%B8%8E%E5%B7%A5%E7%A8%8B%E8%AE%A1%E7%AE%97/</id>
-    <published>2024-06-11T02:18:33.000Z</published>
-    <updated>2024-06-12T06:51:44.515Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Parallel-and-High-Performance-Computing"><a href="#Parallel-and-High-Performance-Computing" class="headerlink" title="Parallel and High Performance Computing"></a>Parallel and High Performance Computing</h1><h2 id="一-为什么要并行计算"><a href="#一-为什么要并行计算" class="headerlink" title="一 为什么要并行计算"></a>一 为什么要并行计算</h2><p>降低成本、降低能耗、运行时间更短</p><p>1.能耗 = 处理器的个数 <em> 理论设计功耗 </em> 应用程序运行时间。<br>GPU公式相同，N为GPU的数量</p><p>2.amdahl定律：speedupN = 1/s+(p/n)<br>无论我们以多块的速度完成并行代码的部分，我们总是会受到串行部分的限制。</p><p>强可拓展性：<br><img src="image-3.png" alt="alt text"></p><p>3.Gustafson-Barsis 定律：SpeedUp(N) = N – S * (N – 1)</p><p>弱可拓展性：<br><img src="image-4.png" alt="alt text"></p><p>4.分布式内存和共享式内存<br><img src="image-5.png" alt="alt text"><br>良好的内存可拓展性，但是需要程序员手动管理内存分区<br><img src="image-6.png" alt="alt text"><br>易于编程，但是可拓展性降低，内核之间同步内存访问开销大</p><p>5.为什么不继续提高时钟频率而进行向量呢？<br>增加 CPU 时钟频率的最大限制是它需要更多的功率并产生更多的热量。如今的设备都有功率限制。这个问题被称为power wall.而向量化，功率没有变化，执行时间降低导致更少的能耗，同时还能提高吞吐量</p><p>6.基于进程的并行化：消息传递（MPI）<br><img src="image-7.png" alt="alt text"><br>进程是一个操作系统概念，而处理器是一个硬件组件。无论应用程序生成多少个进程，这些进程都由操作系统调度到处理核心。实际上，您可以在四核笔记本电脑上运行八个进程，这些进程只会在处理内核之间交换</p><p>7.基于线程的并行化<br>只适用于单个节点<br><img src="image-8.png" alt="alt text"></p><p>8.练习与总结</p><h2 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h2><p>超线程：将两个指令队列交错工作到硬件逻辑单元，可以使单个物理内核在操作系统 （OS） 中显示为两个内核</p><h2 id="三-数据访存优化"><a href="#三-数据访存优化" class="headerlink" title="三 数据访存优化"></a>三 数据访存优化</h2><p>1.访存是最重要的性能限制因素，任何优化首先要减少性能低的数据数据通路上的数据传输，当这不能实现时，至少让数据传输尽可能高效。</p><p>2.基于cache行的内存布局和任何多维数据结构间的映射必须与数据读取和存储顺序相匹配以充分利用局部性</p><p>3.由于cache的回写策略，不连续写比不连续读的代价更高</p><p>4.直接映射cache有一个确定是容易产生颠簸（某些cache行被迅速的导出和替换），当应用程序使用很多应用数据映射到cache的同一行时容易发生这样的现象。所以当连续迭代命中相同的cache行时，非连续访存会导致性能颠簸（不仅仅是直接映射，组相联也会有这种现象）。</p><p>5.循环级优化（循环展开，循环合并，循环分块）<br>其中循环分块：编译器不会自动执行</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Parallel-and-High-Performance-Computing&quot;&gt;&lt;a href=&quot;#Parallel-and-High-Performance-Computing&quot; class=&quot;headerlink&quot; title=&quot;Parallel and H</summary>
       
     
     
