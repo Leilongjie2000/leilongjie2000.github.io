@@ -20,25 +20,25 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="title: 并行笔记date: 2024-06-11 10:18:33tags:Parallel and High Performance Computing一 为什么要并行计算降低成本、降低能耗、运行时间更短 1.能耗 &#x3D; 处理器的个数 * 理论设计功耗 * 应用程序运行时间。GPU公式相同，N为GPU的数量 2.amdahl定律：speedupN &#x3D; 1&#x2F;s+">
+  <meta name="description" content="title: HPC笔记date: 2024-06-12 14:58:18tags: title: 并行笔记date: 2024-06-11 10:18:33tags:Parallel and High Performance Computing一 为什么要并行计算降低成本、降低能耗、运行时间更短 1.能耗 &#x3D; 处理器的个数 * 理论设计功耗 * 应用程序运行时间。GPU公式相同，N为">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HPC笔记">
 <meta property="og:url" content="http://example.com/2024/06/12/HPC%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Llj">
-<meta property="og:description" content="title: 并行笔记date: 2024-06-11 10:18:33tags:Parallel and High Performance Computing一 为什么要并行计算降低成本、降低能耗、运行时间更短 1.能耗 &#x3D; 处理器的个数 * 理论设计功耗 * 应用程序运行时间。GPU公式相同，N为GPU的数量 2.amdahl定律：speedupN &#x3D; 1&#x2F;s+">
+<meta property="og:description" content="title: HPC笔记date: 2024-06-12 14:58:18tags: title: 并行笔记date: 2024-06-11 10:18:33tags:Parallel and High Performance Computing一 为什么要并行计算降低成本、降低能耗、运行时间更短 1.能耗 &#x3D; 处理器的个数 * 理论设计功耗 * 应用程序运行时间。GPU公式相同，N为">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/image-3.png">
-<meta property="og:image" content="http://example.com/image-4.png">
-<meta property="og:image" content="http://example.com/image-5.png">
-<meta property="og:image" content="http://example.com/image-6.png">
-<meta property="og:image" content="http://example.com/image-7.png">
-<meta property="og:image" content="http://example.com/image-8.png">
-<meta property="article:published_time" content="2024-06-12T06:58:18.000Z">
-<meta property="article:modified_time" content="2024-06-12T07:07:31.927Z">
+<meta property="og:image" content="http://example.com/.com//image-3.png">
+<meta property="og:image" content="http://example.com/.com//image-4.png">
+<meta property="og:image" content="http://example.com/.com//image-5.png">
+<meta property="og:image" content="http://example.com/.com//image-6.png">
+<meta property="og:image" content="http://example.com/.com//image-7.png">
+<meta property="og:image" content="http://example.com/.com//image-8.png">
+<meta property="article:published_time" content="2024-06-12T07:11:16.000Z">
+<meta property="article:modified_time" content="2024-06-12T07:11:31.939Z">
 <meta property="article:author" content="Leilongjie">
 <meta property="article:tag" content="HPC, CUDA, MPI, OPENMP, C">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/image-3.png">
+<meta name="twitter:image" content="http://example.com/.com//image-3.png">
 
 <link rel="canonical" href="http://example.com/2024/06/12/HPC%E7%AC%94%E8%AE%B0/">
 
@@ -226,7 +226,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-06-12 14:58:18 / 修改时间：15:07:31" itemprop="dateCreated datePublished" datetime="2024-06-12T14:58:18+08:00">2024-06-12</time>
+              <time title="创建时间：2024-06-12 15:11:16 / 修改时间：15:11:31" itemprop="dateCreated datePublished" datetime="2024-06-12T15:11:16+08:00">2024-06-12</time>
             </span>
 
           
@@ -241,16 +241,17 @@
 
       
         <hr>
+<h2 id="title-HPC笔记date-2024-06-12-14-58-18tags"><a href="#title-HPC笔记date-2024-06-12-14-58-18tags" class="headerlink" title="title: HPC笔记date: 2024-06-12 14:58:18tags:"></a>title: HPC笔记<br>date: 2024-06-12 14:58:18<br>tags:</h2><hr>
 <h2 id="title-并行笔记date-2024-06-11-10-18-33tags"><a href="#title-并行笔记date-2024-06-11-10-18-33tags" class="headerlink" title="title: 并行笔记date: 2024-06-11 10:18:33tags:"></a>title: 并行笔记<br>date: 2024-06-11 10:18:33<br>tags:</h2><h1 id="Parallel-and-High-Performance-Computing"><a href="#Parallel-and-High-Performance-Computing" class="headerlink" title="Parallel and High Performance Computing"></a>Parallel and High Performance Computing</h1><h2 id="一-为什么要并行计算"><a href="#一-为什么要并行计算" class="headerlink" title="一 为什么要并行计算"></a>一 为什么要并行计算</h2><p>降低成本、降低能耗、运行时间更短</p>
 <p>1.能耗 &#x3D; 处理器的个数 * 理论设计功耗 * 应用程序运行时间。<br>GPU公式相同，N为GPU的数量</p>
 <p>2.amdahl定律：speedupN &#x3D; 1&#x2F;s+(p&#x2F;n)<br>无论我们以多块的速度完成并行代码的部分，我们总是会受到串行部分的限制。</p>
-<p>强可拓展性：<br><img src="/image-3.png"></p>
+<p>强可拓展性：<br><img src="/.com//image-3.png" alt="alt text"></p>
 <p>3.Gustafson-Barsis 定律：SpeedUp(N) &#x3D; N – S * (N – 1)</p>
-<p>弱可拓展性：<br><img src="/image-4.png" alt="alt text"></p>
-<p>4.分布式内存和共享式内存<br><img src="/image-5.png" alt="alt text"><br>良好的内存可拓展性，但是需要程序员手动管理内存分区<br><img src="/image-6.png" alt="alt text"><br>易于编程，但是可拓展性降低，内核之间同步内存访问开销大</p>
+<p>弱可拓展性：<br><img src="/.com//image-4.png" alt="alt text"></p>
+<p>4.分布式内存和共享式内存<br><img src="/.com//image-5.png" alt="alt text"><br>良好的内存可拓展性，但是需要程序员手动管理内存分区<br><img src="/.com//image-6.png" alt="alt text"><br>易于编程，但是可拓展性降低，内核之间同步内存访问开销大</p>
 <p>5.为什么不继续提高时钟频率而进行向量呢？<br>增加 CPU 时钟频率的最大限制是它需要更多的功率并产生更多的热量。如今的设备都有功率限制。这个问题被称为power wall.而向量化，功率没有变化，执行时间降低导致更少的能耗，同时还能提高吞吐量</p>
-<p>6.基于进程的并行化：消息传递（MPI）<br><img src="/image-7.png" alt="alt text"><br>进程是一个操作系统概念，而处理器是一个硬件组件。无论应用程序生成多少个进程，这些进程都由操作系统调度到处理核心。实际上，您可以在四核笔记本电脑上运行八个进程，这些进程只会在处理内核之间交换</p>
-<p>7.基于线程的并行化<br>只适用于单个节点<br><img src="/image-8.png" alt="alt text"></p>
+<p>6.基于进程的并行化：消息传递（MPI）<br><img src="/.com//image-7.png" alt="alt text"><br>进程是一个操作系统概念，而处理器是一个硬件组件。无论应用程序生成多少个进程，这些进程都由操作系统调度到处理核心。实际上，您可以在四核笔记本电脑上运行八个进程，这些进程只会在处理内核之间交换</p>
+<p>7.基于线程的并行化<br>只适用于单个节点<br><img src="/.com//image-8.png" alt="alt text"></p>
 <p>8.练习与总结</p>
 <h2 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h2><p>超线程：将两个指令队列交错工作到硬件逻辑单元，可以使单个物理内核在操作系统 （OS） 中显示为两个内核</p>
 <h2 id="三-数据访存优化"><a href="#三-数据访存优化" class="headerlink" title="三 数据访存优化"></a>三 数据访存优化</h2><p>1.访存是最重要的性能限制因素，任何优化首先要减少性能低的数据数据通路上的数据传输，当这不能实现时，至少让数据传输尽可能高效。</p>
@@ -335,7 +336,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-%E5%B9%B6%E8%A1%8C%E7%AC%94%E8%AE%B0date-2024-06-11-10-18-33tags"><span class="nav-number">1.</span> <span class="nav-text">title: 并行笔记date: 2024-06-11 10:18:33tags:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Parallel-and-High-Performance-Computing"><span class="nav-number"></span> <span class="nav-text">Parallel and High Performance Computing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">一 为什么要并行计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E6%95%B0%E6%8D%AE%E8%AE%BF%E5%AD%98%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">三 数据访存优化</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-HPC%E7%AC%94%E8%AE%B0date-2024-06-12-14-58-18tags"><span class="nav-number">1.</span> <span class="nav-text">title: HPC笔记date: 2024-06-12 14:58:18tags:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#title-%E5%B9%B6%E8%A1%8C%E7%AC%94%E8%AE%B0date-2024-06-11-10-18-33tags"><span class="nav-number">2.</span> <span class="nav-text">title: 并行笔记date: 2024-06-11 10:18:33tags:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Parallel-and-High-Performance-Computing"><span class="nav-number"></span> <span class="nav-text">Parallel and High Performance Computing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">一 为什么要并行计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E6%95%B0%E6%8D%AE%E8%AE%BF%E5%AD%98%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">三 数据访存优化</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
