@@ -1,31 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2024/06/07/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>高性能科学与工程计算</title>
+    <title>并行笔记</title>
     <url>/2024/06/11/%E9%AB%98%E6%80%A7%E8%83%BD%E7%A7%91%E5%AD%A6%E4%B8%8E%E5%B7%A5%E7%A8%8B%E8%AE%A1%E7%AE%97/</url>
-    <content><![CDATA[<h1 id="高性能科学与计算笔记"><a href="#高性能科学与计算笔记" class="headerlink" title="高性能科学与计算笔记"></a>高性能科学与计算笔记</h1><h2 id="一-当代处理器"><a href="#一-当代处理器" class="headerlink" title="一 当代处理器"></a>一 当代处理器</h2><h2 id="二"><a href="#二" class="headerlink" title="二"></a>二</h2><h2 id="三-数据访存优化"><a href="#三-数据访存优化" class="headerlink" title="三 数据访存优化"></a>三 数据访存优化</h2><p>1.访存是最重要的性能限制因素，任何优化首先要减少性能低的数据数据通路上的数据传输，当这不能实现时，至少让数据传输尽可能高效。</p>
+    <content><![CDATA[<h1 id="Parallel-and-High-Performance-Computing"><a href="#Parallel-and-High-Performance-Computing" class="headerlink" title="Parallel and High Performance Computing"></a>Parallel and High Performance Computing</h1><h2 id="一-为什么要并行计算"><a href="#一-为什么要并行计算" class="headerlink" title="一 为什么要并行计算"></a>一 为什么要并行计算</h2><p>降低成本、降低能耗、运行时间更短</p>
+<p>1.能耗 = 处理器的个数 <em> 理论设计功耗 </em> 应用程序运行时间。<br>GPU公式相同，N为GPU的数量</p>
+<p>2.amdahl定律：speedupN = 1/s+(p/n)<br>无论我们以多块的速度完成并行代码的部分，我们总是会受到串行部分的限制。</p>
+<p>强可拓展性：<br><img src="image-3.png" alt="alt text"></p>
+<p>3.Gustafson-Barsis 定律：SpeedUp(N) = N – S * (N – 1)</p>
+<p>弱可拓展性：<br><img src="image-4.png" alt="alt text"></p>
+<p>4.分布式内存和共享式内存<br><img src="image-5.png" alt="alt text"><br>良好的内存可拓展性，但是需要程序员手动管理内存分区<br><img src="image-6.png" alt="alt text"><br>易于编程，但是可拓展性降低，内核之间同步内存访问开销大</p>
+<p>5.为什么不继续提高时钟频率而进行向量呢？<br>增加 CPU 时钟频率的最大限制是它需要更多的功率并产生更多的热量。如今的设备都有功率限制。这个问题被称为power wall.而向量化，功率没有变化，执行时间降低导致更少的能耗，同时还能提高吞吐量</p>
+<p>6.基于进程的并行化：消息传递（MPI）<br><img src="image-7.png" alt="alt text"><br>进程是一个操作系统概念，而处理器是一个硬件组件。无论应用程序生成多少个进程，这些进程都由操作系统调度到处理核心。实际上，您可以在四核笔记本电脑上运行八个进程，这些进程只会在处理内核之间交换</p>
+<p>7.基于线程的并行化<br>只适用于单个节点<br><img src="image-8.png" alt="alt text"></p>
+<p>8.练习与总结</p>
+<h2 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h2><p>超线程：将两个指令队列交错工作到硬件逻辑单元，可以使单个物理内核在操作系统 （OS） 中显示为两个内核</p>
+<h2 id="三-数据访存优化"><a href="#三-数据访存优化" class="headerlink" title="三 数据访存优化"></a>三 数据访存优化</h2><p>1.访存是最重要的性能限制因素，任何优化首先要减少性能低的数据数据通路上的数据传输，当这不能实现时，至少让数据传输尽可能高效。</p>
 <p>2.基于cache行的内存布局和任何多维数据结构间的映射必须与数据读取和存储顺序相匹配以充分利用局部性</p>
 <p>3.由于cache的回写策略，不连续写比不连续读的代价更高</p>
 <p>4.直接映射cache有一个确定是容易产生颠簸（某些cache行被迅速的导出和替换），当应用程序使用很多应用数据映射到cache的同一行时容易发生这样的现象。所以当连续迭代命中相同的cache行时，非连续访存会导致性能颠簸（不仅仅是直接映射，组相联也会有这种现象）。</p>
 <p>5.循环级优化（循环展开，循环合并，循环分块）<br>其中循环分块：编译器不会自动执行</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>刷会儿算法题</title>
+    <url>/2024/06/11/%E5%88%B7%E4%BC%9A%E5%84%BF%E7%AE%97%E6%B3%95%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p><img src="image.png" alt="alt text"></p>
+<p><strong>特点：有序数组、无重复元素</strong></p>
+<pre><code>#include &lt;stdio.h&gt;
+int search(int * nums, int n, int target)&#123;
+    int i, j, post;
+    i = 0;
+    j = n-1;
+    post = 0;
+    while(i &lt;= j)&#123;
+        post = (i + j) / 2;
+        if(nums[post] &gt; target)&#123;
+            j = post - 1;
+        &#125;
+        else if(nums[post] &lt; target)&#123;
+            i = post + 1;
+        &#125;
+        else &#123;
+            return post;
+        &#125;
+    &#125;
+    return -1;
+&#125;
+
+int main()&#123;
+    int n;
+    int target = 5;
+    int nums[2] = &#123;5,6&#125;;
+    int post = search(nums, n, target);
+    printf(&quot;%d&quot;,post);
+    return 0;
+&#125;
+</code></pre><h2 id="相似题目"><a href="#相似题目" class="headerlink" title="相似题目"></a>相似题目</h2><p><img src="image-1.png" alt="alt text"></p>
+<pre><code>#include &lt;stdio.h&gt;
+int searchInsert(int * nums, int n, int target)&#123;
+    int i, j, post;
+    i = 0;
+    j = n-1;
+    post = 0;
+    while(i &lt;= j)&#123;
+        post = (i + j) / 2;
+        if(nums[post] &gt; target)&#123;
+            j = post - 1;
+        &#125;
+        else if(nums[post] &lt; target)&#123;
+            i = post + 1;
+        &#125;
+        else &#123;
+            return post;
+        &#125;
+    &#125;
+    return j + 1;
+&#125;
+
+int main()&#123;
+    int n = 6;
+    int target = 10;
+    int nums[6] = &#123;5,6,9,12,16,20&#125;;
+    int post = searchInsert(nums, n, target);
+    printf(&quot;%d&quot;,post);
+    return 0;
+</code></pre><p>}<br><img src="image-2.png" alt="alt text"></p>
 ]]></content>
   </entry>
 </search>
