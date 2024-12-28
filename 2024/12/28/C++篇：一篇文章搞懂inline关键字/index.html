@@ -8,7 +8,7 @@
 	</script>
 	<head>
 		
-<title>Hello World | </title>
+<title>C++篇：一篇文章搞懂inline关键字 | </title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,8 +18,9 @@
 <link rel="stylesheet" href="/css/index.css">
 
 
-    <meta name="keywords" content="blog、数据结构、操作系统、LLVM、编译、音乐、电影">
-    <meta name="description" content="自信可改变未来--《光辉岁月》">
+
+<meta name="keywords" content="C++,">
+<meta name="description" content="">
 
 
 
@@ -236,6 +237,14 @@
 		
 		
 			
+				postsBreadcrumb(
+					document.getElementById('breadcrumb'),
+					"类别",
+					"/categories/",
+					"C++",
+					"/categories//C++"
+				);
+			
 		
 	</script>
 </header>
@@ -259,9 +268,13 @@
 			<div class="post-header-background-content">
 				<ul class="post-header-tag">
 					
+						
+							<li><a href="/tags/C++"><span>C++</span></a></li>
+						
+					
 				</ul>
 				
-				<h1>Hello World</h1>
+				<h1>C++篇：一篇文章搞懂inline关键字</h1>
 		
 				
 		
@@ -278,9 +291,11 @@
 					
 						<div class="post-header-info-categories">
 							
+								<a href="/categories/C++">C++</a>
+							
 						</div>
 					
-					<time>2024/12/16 21:20:08</time>
+					<time>2024/12/28 21:49:40</time>
 				</div>
 		
 				
@@ -315,15 +330,24 @@
 </header>
         <div class="post-content article-container">
             <article class="post-content-info">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+                <h1 id="C-篇：一篇文章搞懂inline关键字"><a href="#C-篇：一篇文章搞懂inline关键字" class="headerlink" title="C++篇：一篇文章搞懂inline关键字"></a>C++篇：一篇文章搞懂inline关键字</h1><h1 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h1><h2 id="1-类中内联"><a href="#1-类中内联" class="headerlink" title="1.类中内联"></a>1.类中内联</h2><p>头文件中声明方法</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span>; <br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * brief 类中定义了的函数是隐式内联函数,声明要想成为内联函数，必须在实现处(定义处)加inline关键字。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * param x</span><br><span class="hljs-comment">     * param y</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Foo</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span> <span class="hljs-comment">///&lt; 定义即隐式内联函数！</span></span><br><span class="hljs-function">    </span>&#123;<br>    <br>    &#125;;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">f2</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span>; <span class="hljs-comment">///&lt; 声明后，要想成为内联函数，必须在定义处加inline关键字。  </span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>实现文件中定义内联函数：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;inline.h&quot;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * brief inline要起作用,inline要与函数定义放在一起,inline是一种“用于实现的关键字,而不是用于声明的关键字”</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * param x</span><br><span class="hljs-comment"> * param y</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * return </span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">Foo</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span></span>;  <span class="hljs-comment">// 函数声明</span><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">Foo</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span> <span class="hljs-comment">// 函数定义</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> x+y;<br>&#125;<br><br><span class="hljs-comment">// 定义处加inline关键字，推荐这种写法！</span><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">A::f1</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span>&#123;<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><br>    <br>    cout&lt;&lt;<span class="hljs-built_in">Foo</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)&lt;&lt;endl;<br><br>&#125;<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 编译器对 inline 函数的处理步骤</span><br><span class="hljs-comment"> * 将 inline 函数体复制到 inline 函数调用点处；</span><br><span class="hljs-comment"> * 为所用 inline 函数中的局部变量分配内存空间；</span><br><span class="hljs-comment"> * 将 inline 函数的的输入参数和返回值映射到调用方法的局部变量空间中；</span><br><span class="hljs-comment"> * 如果 inline 函数有多个返回点，将其转变为 inline 函数代码块末尾的分支（使用 GOTO）。</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
+<p>内联能提高函数效率，但并不是所有的函数都定义成内联函数！内联是以代码膨胀(复制)为代价，<strong>仅仅省去了函数调用的开销</strong>，从而提高函数的执行效率。</p>
+<ul>
+<li>如果执行函数体内代码的时间相比于函数调用的开销较大，那么效率的收获会更少！</li>
+<li>另一方面，每一处内联函数的调用都要复制代码，将使程序的总代码量增大，消耗更多的内存空间。</li>
+</ul>
+<p>以下情况不宜用内联：</p>
+<p>（1）如果函数体内的代码比较长，使得内联将导致内存消耗代价比较高。</p>
+<p>（2）如果函数体内出现循环，那么执行函数体内代码的时间要比函数调用的开销大。</p>
+<h2 id="2-虚函数（virtual）可以是内联函数（inline）吗？"><a href="#2-虚函数（virtual）可以是内联函数（inline）吗？" class="headerlink" title="2.虚函数（virtual）可以是内联函数（inline）吗？"></a>2.虚函数（virtual）可以是内联函数（inline）吗？</h2><ul>
+<li>虚函数可以是内联函数，内联是可以修饰虚函数的，但是当虚函数表现多态性的时候不能内联。</li>
+<li>内联是在编译期建议编译器内联，而虚函数的多态性在运行期，编译器无法知道运行期调用哪个代码，因此虚函数表现为多态性时（运行期）不可以内联。</li>
+<li><code>inline virtual</code> 唯一可以内联的时候是：编译器知道所调用的对象是哪个类（如 <code>Base::who()</code>），这只有在编译器具有实际对象而不是对象的指针或引用时才会发生。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span>  </span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Base</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">who</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;I am Base\n&quot;</span>;<br>    &#125;<br>    <span class="hljs-keyword">virtual</span> ~<span class="hljs-built_in">Base</span>() &#123;&#125;<br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Derived</span> : <span class="hljs-keyword">public</span> Base<br>&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">who</span><span class="hljs-params">()</span>  <span class="hljs-comment">// 不写inline时隐式内联</span></span><br><span class="hljs-function">    </span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;I am Derived\n&quot;</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// 此处的虚函数 who()，是通过类（Base）的具体对象（b）来调用的，编译期间就能确定了，所以它可以是内联的，但最终是否内联取决于编译器。 </span><br>    Base b;<br>    b.<span class="hljs-built_in">who</span>();<br><br>    <span class="hljs-comment">// 此处的虚函数是通过指针调用的，呈现多态性，需要在运行时期间才能确定，所以不能为内联。  </span><br>    Base *ptr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Derived</span>();<br>    ptr-&gt;<span class="hljs-built_in">who</span>();<br><br>    <span class="hljs-comment">// 因为Base有虚析构函数（virtual ~Base() &#123;&#125;），所以 delete 时，会先调用派生类（Derived）析构函数，再调用基类（Base）析构函数，防止内存泄漏。</span><br>    <span class="hljs-keyword">delete</span> ptr;<br>    ptr = <span class="hljs-literal">nullptr</span>;<br><br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125; <br></code></pre></td></tr></table></figure>
 
             </article>
             
@@ -384,12 +408,12 @@
         <div class="post-paging">     
             <div class="post-paging-last">
                 
-                    <a href="/2024/12/28/C++%E7%AF%87%EF%BC%9A%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E6%90%9E%E6%87%82inline%E5%85%B3%E9%94%AE%E5%AD%97/">
-                        上一篇：C++篇：一篇文章搞懂inline关键字
-                    </a>
-                
             </div>
             <div class="post-paging-next">
+                
+                    <a href="/2024/12/16/hello-world/">
+                        下一篇：Hello World
+                    </a>
                 
             </div>
         </div>
