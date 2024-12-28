@@ -8,7 +8,7 @@
 	</script>
 	<head>
 		
-<title>C++篇：一篇文章搞懂inline关键字 | </title>
+<title>The BLOG of LLJ | </title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,9 +18,8 @@
 <link rel="stylesheet" href="/css/index.css">
 
 
-
-<meta name="keywords" content="C++,">
-<meta name="description" content="">
+    <meta name="keywords" content="blog、数据结构、操作系统、LLVM、编译、音乐、电影">
+    <meta name="description" content="自信可改变未来--《光辉岁月》">
 
 
 
@@ -237,14 +236,6 @@
 		
 		
 			
-				postsBreadcrumb(
-					document.getElementById('breadcrumb'),
-					"类别",
-					"/categories",
-					"C++",
-					"/categories/C++"
-				);
-			
 		
 	</script>
 </header>
@@ -268,13 +259,9 @@
 			<div class="post-header-background-content">
 				<ul class="post-header-tag">
 					
-						
-							<li><a href="/tags/C++"><span>C++</span></a></li>
-						
-					
 				</ul>
 				
-				<h1>C++篇：一篇文章搞懂inline关键字</h1>
+				<h1></h1>
 		
 				
 		
@@ -291,11 +278,9 @@
 					
 						<div class="post-header-info-categories">
 							
-								<a href="/categories/C++">C++</a>
-							
 						</div>
 					
-					<time>2024/12/28 21:49:40</time>
+					<time>2024/12/28 22:30:02</time>
 				</div>
 		
 				
@@ -330,7 +315,10 @@
 </header>
         <div class="post-content article-container">
             <article class="post-content-info">
-                <h1 id="C-篇：一篇文章搞懂inline关键字"><a href="#C-篇：一篇文章搞懂inline关键字" class="headerlink" title="C++篇：一篇文章搞懂inline关键字"></a>C++篇：一篇文章搞懂inline关键字</h1><h1 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h1><h2 id="1-类中内联"><a href="#1-类中内联" class="headerlink" title="1.类中内联"></a>1.类中内联</h2><p>头文件中声明方法</p>
+                <p>title: C++篇：一篇文章搞懂inline关键字<br>date: 2024-12-28 21:49:40<br>tags:</p>
+<pre><code>- C++
+</code></pre><p>categories: C++<br>descroption: 介绍C++中的内联关键字</p>
+<h1 id="C-篇：一篇文章搞懂inline关键字"><a href="#C-篇：一篇文章搞懂inline关键字" class="headerlink" title="C++篇：一篇文章搞懂inline关键字"></a>C++篇：一篇文章搞懂inline关键字</h1><h1 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h1><h2 id="1-类中内联"><a href="#1-类中内联" class="headerlink" title="1.类中内联"></a>1.类中内联</h2><p>头文件中声明方法</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span><br>&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span>; <br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * brief 类中定义了的函数是隐式内联函数,声明要想成为内联函数，必须在实现处(定义处)加inline关键字。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * param x</span><br><span class="hljs-comment">     * param y</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Foo</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span> <span class="hljs-comment">///&lt; 定义即隐式内联函数！</span></span><br><span class="hljs-function">    </span>&#123;<br>    <br>    &#125;;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">f2</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span>; <span class="hljs-comment">///&lt; 声明后，要想成为内联函数，必须在定义处加inline关键字。  </span><br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>实现文件中定义内联函数：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;inline.h&quot;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * brief inline要起作用,inline要与函数定义放在一起,inline是一种“用于实现的关键字,而不是用于声明的关键字”</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * param x</span><br><span class="hljs-comment"> * param y</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * return </span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">Foo</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span></span>;  <span class="hljs-comment">// 函数声明</span><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">Foo</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span> <span class="hljs-comment">// 函数定义</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> x+y;<br>&#125;<br><br><span class="hljs-comment">// 定义处加inline关键字，推荐这种写法！</span><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">A::f1</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span>&#123;<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><br>    <br>    cout&lt;&lt;<span class="hljs-built_in">Foo</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)&lt;&lt;endl;<br><br>&#125;<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 编译器对 inline 函数的处理步骤</span><br><span class="hljs-comment"> * 将 inline 函数体复制到 inline 函数调用点处；</span><br><span class="hljs-comment"> * 为所用 inline 函数中的局部变量分配内存空间；</span><br><span class="hljs-comment"> * 将 inline 函数的的输入参数和返回值映射到调用方法的局部变量空间中；</span><br><span class="hljs-comment"> * 如果 inline 函数有多个返回点，将其转变为 inline 函数代码块末尾的分支（使用 GOTO）。</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
@@ -446,11 +434,11 @@
             <div class="aside-top-about-site">
                 <a href="/categories" class="aside-top-about-site-item">
                     <span class="title">类别</span>
-                    <span class="count">1</span>
+                    <span class="count">0</span>
                 </a>
                 <a href="/tags" class="aside-top-about-site-item">
                     <span class="title">标签</span>
-                    <span class="count">1</span>
+                    <span class="count">0</span>
                 </a>
                 <a href="/archives" class="aside-top-about-site-item">
                     <span class="title">归档</span>
