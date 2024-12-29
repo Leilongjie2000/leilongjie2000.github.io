@@ -8,7 +8,7 @@
 	</script>
 	<head>
 		
-<title>Hello World | </title>
+<title>数据结构篇：链表 | </title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,8 +18,9 @@
 <link rel="stylesheet" href="/css/index.css">
 
 
-    <meta name="keywords" content="blog、数据结构、操作系统、LLVM、编译、音乐、电影">
-    <meta name="description" content="自信可改变未来--《光辉岁月》">
+
+<meta name="keywords" content="数据结构,链表,">
+<meta name="description" content="">
 
 
 
@@ -236,6 +237,14 @@
 		
 		
 			
+				postsBreadcrumb(
+					document.getElementById('breadcrumb'),
+					"类别",
+					"/categories",
+					"数据结构",
+					"/categories/数据结构"
+				);
+			
 		
 	</script>
 </header>
@@ -259,9 +268,15 @@
 			<div class="post-header-background-content">
 				<ul class="post-header-tag">
 					
+						
+							<li><a href="/tags/数据结构"><span>数据结构</span></a></li>
+						
+							<li><a href="/tags/链表"><span>链表</span></a></li>
+						
+					
 				</ul>
 				
-				<h1>Hello World</h1>
+				<h1>数据结构篇：链表</h1>
 		
 				
 		
@@ -278,9 +293,11 @@
 					
 						<div class="post-header-info-categories">
 							
+								<a href="/categories/数据结构">数据结构</a>
+							
 						</div>
 					
-					<time>2024/12/16 21:20:08</time>
+					<time>2024/12/29 22:25:43</time>
 				</div>
 		
 				
@@ -315,15 +332,43 @@
 </header>
         <div class="post-content article-container">
             <article class="post-content-info">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+                <h3 id="数据结构篇：-链表"><a href="#数据结构篇：-链表" class="headerlink" title="数据结构篇： 链表"></a>数据结构篇： 链表</h3><p>本文记录刷力扣题的过程</p>
+<p><strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-linked-list-elements/">203. 移除链表元素</a></strong></p>
+<p>给你一个链表的头节点 <code>head</code> 和一个整数 <code>val</code> ，请你删除链表中所有满足 <code>Node.val == val</code> 的节点，并返回 <strong>新的头节点</strong> </p>
+<p>注意while循环里判断条件是<code>cur-&gt;next!= NULL</code>只有这是因为你从上一个节点进行判断才能删除值为<code>val</code>的节点</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">removeElements</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> val)</span> </span>&#123;<br>        ListNode * dummyHead = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">0</span>);<br>        dummyHead-&gt;next = head;<br>        ListNode * cur = dummyHead;<br>        <span class="hljs-keyword">while</span>(cur-&gt;next!= <span class="hljs-literal">NULL</span>)&#123;<br>            <span class="hljs-keyword">if</span>(cur-&gt;next-&gt;val ==val )&#123;<br>                ListNode * tmp = cur-&gt;next;<br>                cur-&gt;next = cur-&gt;next-&gt;next;<br>                <span class="hljs-keyword">delete</span> tmp;<br>            &#125;<br>            <span class="hljs-keyword">else</span>&#123;<br>                cur=cur-&gt;next;<br>            &#125;<br>        &#125;<br>        head = dummyHead-&gt;next;<br>        <span class="hljs-keyword">delete</span> dummyHead;<br>        <span class="hljs-keyword">return</span> head;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-linked-list/">206. 反转链表</a></strong></p>
+<p>给你单链表的头节点 <code>head</code> ，请你反转链表，并返回反转后的链表。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br>        ListNode * temp;<br>        ListNode * pre = <span class="hljs-literal">NULL</span>;<br>        ListNode * cur = head;<br>        <span class="hljs-keyword">while</span>(cur)&#123;<br>            temp = cur-&gt;next;<br>            cur-&gt;next = pre;<br>            pre = cur;<br>            cur = temp;<br>        &#125;<br>        <span class="hljs-keyword">return</span> pre;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/swap-nodes-in-pairs/">24. 两两交换链表中的节点</a></strong>(中等)</p>
+<p>给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">swapPairs</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br>        ListNode * dummyHead = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">0</span>);<br>        dummyHead-&gt;next = head;<br>        ListNode * cur = dummyHead;<br>        <span class="hljs-keyword">while</span>(cur-&gt;next!=<span class="hljs-literal">NULL</span> &amp;&amp; cur-&gt;next-&gt;next!=<span class="hljs-literal">NULL</span>)&#123;<br>            ListNode * temp1 = cur-&gt;next;<br>            ListNode * temp2 = cur-&gt;next-&gt;next-&gt;next;<br>            cur-&gt;next = cur-&gt;next-&gt;next;<br>            cur-&gt;next-&gt;next = temp1;<br>            cur-&gt;next-&gt;next-&gt;next = temp2;<br>            cur = cur-&gt;next-&gt;next;<br>        &#125;<br>        ListNode * result = dummyHead-&gt;next;<br>        <span class="hljs-keyword">delete</span> dummyHead;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第 N 个结点</a></strong>(中等)</p>
+<p>给你一个链表，删除链表的倒数第 <code>n</code> 个结点，并且返回链表的头结点。</p>
+<p>这里需要注意的是为什么有个格外的<code>p = p-&gt;next;</code>这是因为，while循环里判断条件是p，我们需要让pre少走一步，走到他的前驱节点才能进行删除</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>		ListNode * dummyHead = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">0</span>);<br>        dummyHead-&gt;next = head;<br>        ListNode * pre = dummyHead;<br>        ListNode * p = pre;<br>        <span class="hljs-keyword">while</span>(n &amp;&amp; p!=<span class="hljs-literal">NULL</span>)&#123;<br>            p = p-&gt;next;<br>            n--;<br>        &#125;<br>        p = p-&gt;next;<br>        <span class="hljs-keyword">while</span>(p!=<span class="hljs-literal">NULL</span>)&#123;<br>            p = p-&gt;next;<br>            pre = pre-&gt;next;<br>        &#125;<br>        pre-&gt;next = pre-&gt;next-&gt;next;<br>        <span class="hljs-keyword">return</span> dummyHead-&gt;next;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/intersection-of-two-linked-lists-lcci/">面试题 02.07. 链表相交</a></strong></p>
+<p>给你两个单链表的头节点 <code>headA</code> 和 <code>headB</code> ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 <code>null</code> 。</p>
+<p>图示两个链表在节点 <code>c1</code> 开始相交<strong>：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png"><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png" alt="img"></a></p>
+<p>题目数据 <strong>保证</strong> 整个链式结构中不存在环。</p>
+<p><strong>注意</strong>，函数返回结果后，链表必须 <strong>保持其原始结构</strong> 。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode *<span class="hljs-title">getIntersectionNode</span><span class="hljs-params">(ListNode *headA, ListNode *headB)</span> </span>&#123;<br>        ListNode* curA = headA;<br>        ListNode* curB = headB;<br>        <span class="hljs-type">int</span> lenA = <span class="hljs-number">0</span>, lenB = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (curA != <span class="hljs-literal">NULL</span>) &#123; <span class="hljs-comment">// 求链表A的长度</span><br>            lenA++;<br>            curA = curA-&gt;next;<br>        &#125;<br>        <span class="hljs-keyword">while</span> (curB != <span class="hljs-literal">NULL</span>) &#123; <span class="hljs-comment">// 求链表B的长度</span><br>            lenB++;<br>            curB = curB-&gt;next;<br>        &#125;<br>        curA = headA;<br>        curB = headB;<br>        <span class="hljs-comment">// 让curA为最长链表的头，lenA为其长度</span><br>        <span class="hljs-keyword">if</span> (lenB &gt; lenA) &#123;<br>            <span class="hljs-built_in">swap</span> (lenA, lenB);<br>            <span class="hljs-built_in">swap</span> (curA, curB);<br>        &#125;<br>        <span class="hljs-comment">// 求长度差</span><br>        <span class="hljs-type">int</span> gap = lenA - lenB;<br>        <span class="hljs-comment">// 让curA和curB在同一起点上（末尾位置对齐）</span><br>        <span class="hljs-keyword">while</span> (gap--) &#123;<br>            curA = curA-&gt;next;<br>        &#125;<br>        <span class="hljs-comment">// 遍历curA 和 curB，遇到相同则直接返回</span><br>        <span class="hljs-keyword">while</span> (curA != <span class="hljs-literal">NULL</span>) &#123;<br>            <span class="hljs-keyword">if</span> (curA == curB) &#123;<br>                <span class="hljs-keyword">return</span> curA;<br>            &#125;<br>            curA = curA-&gt;next;<br>            curB = curB-&gt;next;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle-ii/">142. 环形链表 II</a></strong>(中等)</p>
+<p>这题有点绕，可以看代码随想录的动画演示视频：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html#%E6%80%9D%E8%B7%AF">https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html#%E6%80%9D%E8%B7%AF</a></p>
+</blockquote>
+<p>给定一个链表的头节点  <code>head</code> ，返回链表开始入环的第一个节点。 <em>如果链表无环，则返回 <code>null</code>。</em></p>
+<p>如果链表中有某个节点，可以通过连续跟踪 <code>next</code> 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 <code>pos</code> 来表示链表尾连接到链表中的位置（<strong>索引从 0 开始</strong>）。如果 <code>pos</code> 是 <code>-1</code>，则在该链表中没有环。<strong>注意：<code>pos</code> 不作为参数进行传递</strong>，仅仅是为了标识链表的实际情况。</p>
+<p><strong>不允许修改</strong> 链表。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode *<span class="hljs-title">detectCycle</span><span class="hljs-params">(ListNode *head)</span> </span>&#123;<br>        <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png" alt="img"></p>
+<blockquote>
+<p>输入：head = [3,2,0,-4], pos = 1<br>输出：返回索引为 1 的链表节点<br>解释：链表中有一个环，其尾部连接到第二个节点。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode *<span class="hljs-title">detectCycle</span><span class="hljs-params">(ListNode *head)</span> </span>&#123;<br>        ListNode* fast = head;<br>        ListNode* slow = head;<br>        <span class="hljs-keyword">while</span>(fast != <span class="hljs-literal">NULL</span> &amp;&amp; fast-&gt;next != <span class="hljs-literal">NULL</span>) &#123;<br>            slow = slow-&gt;next;<br>            fast = fast-&gt;next-&gt;next;<br>            <span class="hljs-comment">// 快慢指针相遇，此时从head 和 相遇点，同时查找直至相遇</span><br>            <span class="hljs-keyword">if</span> (slow == fast) &#123;<br>                ListNode* index1 = fast;<br>                ListNode* index2 = head;<br>                <span class="hljs-keyword">while</span> (index1 != index2) &#123;<br>                    index1 = index1-&gt;next;<br>                    index2 = index2-&gt;next;<br>                &#125;<br>                <span class="hljs-keyword">return</span> index2; <span class="hljs-comment">// 返回环的入口</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
             </article>
             
@@ -384,12 +429,12 @@
         <div class="post-paging">     
             <div class="post-paging-last">
                 
-                    <a href="/2024/12/28/C++%E7%AF%87%EF%BC%9A%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E6%90%9E%E6%87%82inline%E5%85%B3%E9%94%AE%E5%AD%97/">
-                        上一篇：C++篇：一篇文章搞懂inline关键字
-                    </a>
-                
             </div>
             <div class="post-paging-next">
+                
+                    <a href="/2024/12/29/C++%E7%AF%87%EF%BC%9A%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB/">
+                        下一篇：C++篇：纯虚函数与抽象类
+                    </a>
                 
             </div>
         </div>
