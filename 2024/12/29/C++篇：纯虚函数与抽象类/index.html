@@ -330,8 +330,7 @@
 </header>
         <div class="post-content article-container">
             <article class="post-content-info">
-                <h1 id="C-：纯虚函数与抽象类"><a href="#C-：纯虚函数与抽象类" class="headerlink" title="C++：纯虚函数与抽象类"></a>C++：纯虚函数与抽象类</h1><p>[TOC]</p>
-<h2 id="1-纯虚函数与抽象类"><a href="#1-纯虚函数与抽象类" class="headerlink" title="1.纯虚函数与抽象类"></a>1.纯虚函数与抽象类</h2><p>C++中的纯虚函数(或抽象函数)是我们没有实现的虚函数！我们只需声明它! 通过声明中赋值0来声明纯虚函数！</p>
+                <h1 id="C-：纯虚函数与抽象类"><a href="#C-：纯虚函数与抽象类" class="headerlink" title="C++：纯虚函数与抽象类"></a>C++：纯虚函数与抽象类</h1><h2 id="1-纯虚函数与抽象类"><a href="#1-纯虚函数与抽象类" class="headerlink" title="1.纯虚函数与抽象类"></a>1.纯虚函数与抽象类</h2><p>C++中的纯虚函数(或抽象函数)是我们没有实现的虚函数！我们只需声明它! 通过声明中赋值0来声明纯虚函数！</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 抽象类</span><br>Class A &#123;<br><span class="hljs-keyword">public</span>: <br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>; <span class="hljs-comment">// 纯虚函数</span><br>    <span class="hljs-comment">/* Other members */</span><br>&#125;; <br></code></pre></td></tr></table></figure>
 <ul>
 <li>纯虚函数：没有函数体的虚函数</li>
