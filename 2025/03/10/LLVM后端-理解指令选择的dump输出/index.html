@@ -334,8 +334,7 @@
 </header>
         <div class="post-content article-container">
             <article class="post-content-info">
-                <h1 id="LLVM后端-理解指令选择的的DAG图以及dump输出"><a href="#LLVM后端-理解指令选择的的DAG图以及dump输出" class="headerlink" title="LLVM后端-理解指令选择的的DAG图以及dump输出"></a>LLVM后端-理解指令选择的的DAG图以及dump输出</h1><p>[TOC]</p>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文以release/19.1.0版本的LLVM源码为基础，阐述了指令选择的整体流程以及llc里常用SelectionDAG命令选项和各流程间的对应关系。另外，借助一个简单的示例呈现了指令选择的dump输出及其意义。进而，掌握指令选择的常见调试分析方法，且有助于深入探究指令选择的内部原理 。</p>
+                <h1 id="LLVM后端-理解指令选择的的DAG图以及dump输出"><a href="#LLVM后端-理解指令选择的的DAG图以及dump输出" class="headerlink" title="LLVM后端-理解指令选择的的DAG图以及dump输出"></a>LLVM后端-理解指令选择的的DAG图以及dump输出</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文以release/19.1.0版本的LLVM源码为基础，阐述了指令选择的整体流程以及llc里常用SelectionDAG命令选项和各流程间的对应关系。另外，借助一个简单的示例呈现了指令选择的dump输出及其意义。进而，掌握指令选择的常见调试分析方法，且有助于深入探究指令选择的内部原理 。</p>
 <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在进行性能调优时发现了一个非常有意思的现象，两条相似的赋值语句最终产生的汇编却截然不同，在进行分析时学到了指令选择的一些相关知识，写下此文进一步加深理解与思考。</p>
 <blockquote>
 <p>目标平台: AMD Ryzen 9 7950X 16-Core Processor</p>
