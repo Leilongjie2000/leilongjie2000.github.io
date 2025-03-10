@@ -353,7 +353,7 @@
 <p>因此对llvm指令选择的机制产生了怀疑，其实最终的解释原因非常简单，甚至和指令选择并无太大的关系，归根结底，是寄存器复用优化与折叠优化的矛盾所致。感兴趣的同学可以分析一下。</p>
 <p>好了，由于本篇的重点在于指令选择的整体流程以及llc里常用SelectionDAG命令选项和各流程间的对应关系，因此不会在上述例子进行过多的阐述，那么我们正片开始！</p>
 <h2 id="指令选择的整体输出"><a href="#指令选择的整体输出" class="headerlink" title="指令选择的整体输出"></a>指令选择的整体输出</h2><p>指令选择是将LLVM IR转换为代表目标指令的SelectDAG节点-SDNode.它是由一些较小的阶段组成，这些阶段如下图所示：</p>
-<p><img src="C:\Users\llj\AppData\Roaming\Typora\typora-user-images\image-20250307223609552.png" alt="image-20250307223609552"></p>
+<p><img src="/home/llj/Desktop/blog/source/tupian/1.png" alt="image-20250307223609552"></p>
 <p>为了直观地展示<code>llc</code>中常用 SelectionDAG 命令选项与各阶段之间的对应关系，图中除了指令选择阶段<code>(1)~(10)</code>以外，还包括了指令调度阶段<code>(11)</code>。</p>
 <p>查看各阶段输出结果的常见方式有以下两种：</p>
 <ul>
