@@ -441,7 +441,7 @@
 <p>因此对llvm指令选择的机制产生了怀疑，其实最终的解释原因非常简单，甚至和指令选择并无太大的关系，归根结底，是寄存器复用优化与折叠优化的矛盾所致。感兴趣的同学可以分析一下。</p>
 <p>好了，由于本篇的重点在于指令选择的整体流程以及llc里常用SelectionDAG命令选项和各流程间的对应关系，因此不会在上述例子进行过多的阐述，那么我们正片开始！</p>
 <h2 id="指令选择的整体输出"><a href="#指令选择的整体输出" class="headerlink" title="指令选择的整体输出"></a>指令选择的整体输出</h2><p>指令选择是将LLVM IR转换为代表目标指令的SelectDAG节点-SDNode.它是由一些较小的阶段组成，这些阶段如下图所示：</p>
-<p><img src="/home/llj/Desktop/blog/source/tupian/1.png" alt="image-20250307223609552"></p>
+<p><img src="https://blogofllj-1314043656.cos.ap-beijing.myqcloud.com/typora/image-20250330135337155.png" alt="image-20250307223609552"></p>
 <p>为了直观地展示<code>llc</code>中常用 SelectionDAG 命令选项与各阶段之间的对应关系，图中除了指令选择阶段<code>(1)~(10)</code>以外，还包括了指令调度阶段<code>(11)</code>。</p>
 <p>查看各阶段输出结果的常见方式有以下两种：</p>
 <ul>
@@ -471,7 +471,7 @@
 <h3 id="查看执行选择的可视化输出："><a href="#查看执行选择的可视化输出：" class="headerlink" title="查看执行选择的可视化输出："></a>查看执行选择的可视化输出：</h3><p>1.z准备可视化数据，比如打印指令选择前的DAG图</p>
 <p><code>llc -view-dag-isel-dags  test.ll -o test.s</code></p>
 <p>输出结果如下所示：</p>
-<p><img src="C:\Users\llj\AppData\Roaming\Typora\typora-user-images\image-20250310210733379.png" alt="image-20250310210733379"></p>
+<p><img src="/mnt/c/Users/llj/AppData/Roaming/Typora/typora-user-images/image-20250310210733379.png" alt="image-20250310210733379"></p>
 <p>可以发现，可视化数据保存在/tep/dagxxx文件中</p>
 <p>2.可视化输出结果</p>
 <p>可以使用dot命令，dot支持多种可视化格式（需安装graphviz）</p>
@@ -708,18 +708,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/03/10/llvm-hou-duan-li-jie-zhi-ling-xuan-ze-de-dump-shu-chu/">
+                <a href="/2025/03/30/llvm-wei-yi-you-pass-tian-jia-yi-ge-bian-yi-xuan-xiang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="LLVM后端-理解指令选择的的DAG图以及dump输出">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">LLVM后端-理解指令选择的的DAG图以及dump输出</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -729,37 +728,16 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-10
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-30
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/LLVM/" class="post-category">
-                                    LLVM
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            LLJ
                             
                         </span>
                     </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/LLVM/">
-                        <span class="chip bg-color">LLVM</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%90%8E%E7%AB%AF/">
-                        <span class="chip bg-color">后端</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%8C%87%E4%BB%A4%E9%80%89%E6%8B%A9/">
-                        <span class="chip bg-color">指令选择</span>
-                    </a>
-                    
                 </div>
                 
             </div>

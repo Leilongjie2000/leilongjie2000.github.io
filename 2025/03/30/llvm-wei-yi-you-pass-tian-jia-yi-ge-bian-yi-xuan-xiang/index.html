@@ -4,8 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, The Blog of LLJ">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="The Blog of LLJ">
+    <meta name="description" content="LLVM：为已有pass添加一个编译选项
+摘要：
+本文以LLVM19.1.0为基础，阐述了如何为LLVM的pass添加一个编译选项，并解释其原理，进而帮助我们在进行性能分析时更好的判断影响因素。
+动机：
+在进行程序性能分析时，我们经常需要判">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +21,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | The Blog of LLJ</title>
+    <title>The Blog of LLJ</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -336,12 +340,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -377,7 +381,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-12-16
+                    2025-03-30
                 </div>
                 
 
@@ -401,15 +405,50 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+                <p>LLVM：为已有pass添加一个编译选项</p>
+<p>摘要：</p>
+<p>本文以LLVM19.1.0为基础，阐述了如何为LLVM的pass添加一个编译选项，并解释其原理，进而帮助我们在进行性能分析时更好的判断影响因素。</p>
+<p>动机：</p>
+<p>在进行程序性能分析时，我们经常需要判断排除一些因素的影响，比如我想排除向量化的影响，llvm的clang端提供了禁用向量化的pass以此来排除向量化的印象，但是有一些pass并没有提供这类的选项，因此，基于这个痛点出来，我们以向量化为例自制一个编译选项(llvm 的flang-new并不支持禁用向量化的选项)以此来满足我们的目的。</p>
+<p>实现：</p>
+<p>前置准备：</p>
+<p>我们先用deepseek帮我们写一个kernel，这个kernel是一个矩阵乘的实现。</p>
+<p>kernel：</p>
+<figure class="highlight fortran"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> matrix_multiply</span><br><span class="line">  <span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line">  <span class="keyword">integer</span>, <span class="keyword">parameter</span> :: N = <span class="number">1024</span></span><br><span class="line">  <span class="keyword">real</span>(<span class="number">8</span>), <span class="keyword">allocatable</span> :: A(:,:), B(:,:), C1(:,:), C2(:,:)</span><br><span class="line">  <span class="keyword">integer</span> :: i, j, k</span><br><span class="line">  <span class="keyword">real</span>(<span class="number">8</span>) :: start_time, end_time</span><br><span class="line">  </span><br><span class="line">  <span class="comment">! 分配矩阵内存</span></span><br><span class="line">  <span class="built_in">allocate</span>(A(N, N), B(N, N), C1(N, N), C2(N, N))</span><br><span class="line">  </span><br><span class="line">  <span class="comment">! 初始化矩阵 (示例用简单数值)</span></span><br><span class="line">  <span class="keyword">do</span> j = <span class="number">1</span>, N</span><br><span class="line">    <span class="keyword">do</span> i = <span class="number">1</span>, N</span><br><span class="line">      A(i, j) = <span class="keyword">real</span>(i + j, <span class="number">8</span>)</span><br><span class="line">      B(i, j) = <span class="keyword">real</span>(i - j, <span class="number">8</span>)</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">! 基础三重循环实现</span></span><br><span class="line">  <span class="keyword">call</span> <span class="built_in">cpu_time</span>(start_time)</span><br><span class="line">  <span class="keyword">call</span> matmul_naive(A, B, C1, N)</span><br><span class="line">  <span class="keyword">call</span> <span class="built_in">cpu_time</span>(end_time)</span><br><span class="line">  <span class="built_in">print</span> <span class="string">'(A, F6.3, A)'</span>, <span class="string">"Naive implementation:  "</span>, end_time - start_time, <span class="string">" seconds"</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">! 使用Fortran内置函数验证</span></span><br><span class="line">  <span class="keyword">call</span> <span class="built_in">cpu_time</span>(start_time)</span><br><span class="line">  C2 = <span class="built_in">matmul</span>(A, B)</span><br><span class="line">  <span class="keyword">call</span> <span class="built_in">cpu_time</span>(end_time)</span><br><span class="line">  <span class="built_in">print</span> <span class="string">'(A, F6.3, A)'</span>, <span class="string">"Built-in matmul:       "</span>, end_time - start_time, <span class="string">" seconds"</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">! 验证结果正确性</span></span><br><span class="line">  <span class="built_in">print</span> <span class="string">'(A, ES10.2)'</span>, <span class="string">"Max error: "</span>, <span class="built_in">maxval</span>(<span class="built_in">abs</span>(C1 - C2))</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">deallocate</span>(A, B, C1, C2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">contains</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">! 基础三重循环实现</span></span><br><span class="line">  <span class="function"><span class="keyword">subroutine</span></span> matmul_naive(A, B, C, n)</span><br><span class="line">    <span class="keyword">real</span>(<span class="number">8</span>), <span class="keyword">intent</span>(<span class="keyword">in</span>)  :: A(n,n), B(n,n)</span><br><span class="line">    <span class="keyword">real</span>(<span class="number">8</span>), <span class="keyword">intent</span>(<span class="keyword">out</span>) :: C(n,n)</span><br><span class="line">    <span class="keyword">integer</span>, <span class="keyword">intent</span>(<span class="keyword">in</span>)  :: n</span><br><span class="line">    <span class="keyword">integer</span> :: i, j, k</span><br><span class="line">    </span><br><span class="line">    C = <span class="number">0.0d0</span></span><br><span class="line">    <span class="keyword">do</span> j = <span class="number">1</span>, n</span><br><span class="line">      <span class="keyword">do</span> k = <span class="number">1</span>, n</span><br><span class="line">        <span class="keyword">do</span> i = <span class="number">1</span>, n</span><br><span class="line">          C(i,j) = C(i,j) + A(i,k) * B(k,j)</span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">end</span> <span class="function"><span class="keyword">subroutine</span></span> matmul_naive</span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> matrix_multiply</span><br></pre></td></tr></tbody></table></figure>
+<p>编译选项：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flang-new -S -emit-llvm test.f90 -o test.ll -O3 -g</span><br></pre></td></tr></tbody></table></figure>
+<p>通过如上编译选项生成ir</p>
+<p>根据-g 打开调试信息，以此来定位到继续矩阵乘的实现位置</p>
+<p><img src="https://blogofllj-1314043656.cos.ap-beijing.myqcloud.com/typora/image-20250329213625387.png" alt="image-20250329213625387"></p>
+<p>从ir中可以可以看到，编译器进行了宽度为2的simd操作</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">.LBB0_7:</span><br><span class="line">	.loc	1 49 11</span><br><span class="line">	movupd	-48(%rdx,%rdi,8), %xmm1</span><br><span class="line">	movupd	-32(%rdx,%rdi,8), %xmm2</span><br><span class="line">	mulpd	%xmm0, %xmm1</span><br><span class="line">	mulpd	%xmm0, %xmm2</span><br><span class="line">	movupd	-48(%rbx,%rdi,8), %xmm3</span><br><span class="line">	addpd	%xmm1, %xmm3</span><br><span class="line">	movupd	-32(%rbx,%rdi,8), %xmm1</span><br><span class="line">	addpd	%xmm2, %xmm1</span><br><span class="line">	movupd	-16(%rbx,%rdi,8), %xmm2</span><br><span class="line">	movupd	(%rbx,%rdi,8), %xmm4</span><br><span class="line">	movupd	%xmm3, -48(%rbx,%rdi,8)</span><br><span class="line">	movupd	%xmm1, -32(%rbx,%rdi,8)</span><br><span class="line">	movupd	-16(%rdx,%rdi,8), %xmm1</span><br><span class="line">	movupd	(%rdx,%rdi,8), %xmm3</span><br><span class="line">	mulpd	%xmm0, %xmm1</span><br><span class="line">	addpd	%xmm2, %xmm1</span><br><span class="line">	mulpd	%xmm0, %xmm3</span><br><span class="line">	addpd	%xmm4, %xmm3</span><br><span class="line">	movupd	%xmm1, -16(%rbx,%rdi,8)</span><br><span class="line">	movupd	%xmm3, (%rbx,%rdi,8)</span><br><span class="line">	addq	$8, %rdi</span><br><span class="line">	cmpq	$1024, %rdi</span><br><span class="line">	jne	.LBB0_7</span><br></pre></td></tr></tbody></table></figure>
+<p>从汇编中也可以看到，LLVM进行了向量化的操作。</p>
+<p>定位到相关的pass:</p>
+<p>我们可以知道进行向量化相关的pass主要是有两个：1.LoopVectorize.cpp 2.SLPVectorizer.cpp。这两个文件位于llvm/lib/Transforms/Vectorize目录下</p>
+<p>这里我们就以LoopVectorize.cpp为例,SLP同理</p>
+<p>在这个文件夹下我们可以看到很多如下的内容：</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> cl::opt&lt;<span class="type">bool</span>&gt; <span class="title">EnableEpilogueVectorization</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function"></span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="string">"enable-epilogue-vectorization"</span>, cl::init(<span class="literal">true</span>), cl::Hidden,</span></span></span><br><span class="line"><span class="params"><span class="function"></span></span></span><br><span class="line"><span class="params"><span class="function">  cl::desc(<span class="string">"Enable vectorization of epilogue loops."</span>))</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>这部分就是编译选项声明的地方，简单读一下上述内容，可以发现这是与尾部向量化有关， cl::desc(“Enable vectorization of epilogue loops.”)介绍了这个选项的含义，cl::init(true)说明初始值为true 说明默认是打开的， 这里的true指的就是 EnableEpilogueVectorization，这是一个bool类型的变量。同样，我们可以通过声明一个变量来实现开关pass的效果。</p>
+<p>我们仿造上述的实现写如下代码：</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> cl::opt&lt;<span class="type">bool</span>&gt; <span class="title">DisableLoopvec</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  <span class="string">"disable-loop-vec"</span>, cl::init(<span class="literal">false</span>), cl::Hidden,</span></span></span><br><span class="line"><span class="params"><span class="function">  cl::desc(<span class="string">"Disable loop vec"</span>))</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>非常简单易懂 这是个禁用向量化的选项，默认是关闭的，选项名称叫disable-loop-vec。</p>
+<p>好了，现在我们已经定义了一个开关pass的选项，那如何来使用呢？</p>
+<p><img src="https://blogofllj-1314043656.cos.ap-beijing.myqcloud.com/typora/image-20250329215257974.png" alt="image-20250329215257974"></p>
+<p>绝大多数的pass实现都是在当前pass的run函数下实现的，我们找到该函数，通过观察函数的return可以发现，当他会return PreservedAnalyses::all();或者 return PA,其中PreservedAnalyses::all()说明，声明当前 Pass <strong>未修改任何程序状态</strong>，因此所有之前的分析结果（如支配树、别名分析等）仍然有效。</p>
+<p>因此我们秩序在已进入run函数的入口，添加如下代码：</p>
+<p><img src="https://blogofllj-1314043656.cos.ap-beijing.myqcloud.com/typora/image-20250329215722808.png" alt="image-20250329215722808"></p>
+<p>当我们的命令行出现我们定义的编译选项-disable-loop-vec时，DisableLoopvec的值就会设置为true，则会进去if判断内，直接不进行任何修改返回当前的ir状态。</p>
+<p>当我们添加完上述两部分代码后，在你的build目录下 </p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j 16 &amp;&amp; make install</span><br></pre></td></tr></tbody></table></figure>
+<p>来使我们的修改生效。</p>
+<p>对于SLP及其他的pass同理</p>
+<p>验证：</p>
+<p>编译选项：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flang-new -S -emit-llvm test.f90 -o test.ll -O3 -g -mllvm -disable-loop-vec -mllvm -disable-loop-slp</span><br></pre></td></tr></tbody></table></figure>
+<p>查看汇编可以发现</p>
+<p>矩阵乘的实现部分没有了之前的simd操作，说明选项生成并成立了。</p>
+<p><img src="https://blogofllj-1314043656.cos.ap-beijing.myqcloud.com/typora/image-20250329220132466.png" alt="image-20250329220132466"></p>
+<p>总结：这篇文章主要时为LLVM Pass（以<code>LoopVectorize</code>为例）添加自定义编译选项，实现对特定优化步骤的动态控制，便于性能分析时隔离不同优化因素的影响。</p>
 
                 
             </div>
@@ -436,7 +475,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2024/12/16/hello-world/">http://example.com/2024/12/16/hello-world/</a>
+                    <a href="http://example.com/2025/03/30/llvm-wei-yi-you-pass-tian-jia-yi-ge-bian-yi-xuan-xiang/">http://example.com/2025/03/30/llvm-wei-yi-you-pass-tian-jia-yi-ge-bian-yi-xuan-xiang/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -550,66 +589,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/12/28/c-pian-yi-pian-wen-zhang-gao-dong-inline-guan-jian-zi/">
+                <a href="/2025/03/30/llvm-wei-yi-you-pass-tian-jia-yi-ge-bian-yi-xuan-xiang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="C++篇：一篇文章搞懂inline关键字">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">C++篇：一篇文章搞懂inline关键字</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-12-28
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Cplus/" class="post-category">
-                                    Cplus
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Cplus/">
-                        <span class="chip bg-color">Cplus</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2024/12/16/hello-world/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -620,7 +611,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-30
                             </span>
                         <span class="publish-author">
                             
@@ -631,6 +622,63 @@
                     </div>
                 </div>
 
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/10/llvm-hou-duan-li-jie-zhi-ling-xuan-ze-de-dump-shu-chu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="LLVM后端-理解指令选择的的DAG图以及dump输出">
+                        
+                        <span class="card-title">LLVM后端-理解指令选择的的DAG图以及dump输出</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/LLVM/" class="post-category">
+                                    LLVM
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/LLVM/">
+                        <span class="chip bg-color">LLVM</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%90%8E%E7%AB%AF/">
+                        <span class="chip bg-color">后端</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%8C%87%E4%BB%A4%E9%80%89%E6%8B%A9/">
+                        <span class="chip bg-color">指令选择</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
