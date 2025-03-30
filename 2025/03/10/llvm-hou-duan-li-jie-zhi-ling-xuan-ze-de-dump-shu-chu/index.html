@@ -468,7 +468,7 @@
 <p><code>llc  test.ll --debug-only=isel &gt; test.log 2&gt;&amp;1</code></p>
 <p>我这里的是x86架构，针对不同的架构你可以添加选项-march-x86/riscv32等</p>
 <p>输出结果详见附录.</p>
-<h3 id="查看执行选择的可视化输出："><a href="#查看执行选择的可视化输出：" class="headerlink" title="查看执行选择的可视化输出："></a>查看执行选择的可视化输出：</h3><p>1.z准备可视化数据，比如打印指令选择前的DAG图</p>
+<h3 id="查看指令选择的可视化输出："><a href="#查看指令选择的可视化输出：" class="headerlink" title="查看指令选择的可视化输出："></a>查看指令选择的可视化输出：</h3><p>1.z准备可视化数据，比如打印指令选择前的DAG图</p>
 <p><code>llc -view-dag-isel-dags  test.ll -o test.s</code></p>
 <p>输出结果如下所示：</p>
 <p><img src="https://blogofllj-1314043656.cos.ap-beijing.myqcloud.com/typora/image-20250310210733379.png" alt="image-20250310210733379"></p>
